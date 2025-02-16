@@ -92,10 +92,3 @@ if ('serviceWorker' in navigator) {
 }
 
 // تصدير المتغيرات والدوال
-export {
-    database,
-    storage,
-    messaging,
-    updateNotificationToken,
-    checkLocationPermission
-};
