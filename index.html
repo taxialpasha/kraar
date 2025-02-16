@@ -4499,7 +4499,7 @@
 /* تحسين عرض صورة السائق */
 .driver-marker img.error {
     /* استخدام صورة افتراضية عند فشل تحميل الصورة */
-    content: url('https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527');
+    content: url('default-avatar.png');
     background:
      #333333;
 }
@@ -5272,16 +5272,16 @@
                                     <!-- زر الإضافة تحت السائقين -->
 
 
-                                    <button class="add-driver-btn side-nav-item" onclick="window.location.href='add-driver.html'">
+                                    <button class="add-driver-btn side-nav-item" onclick="showAddDriverModal()">
                                         <i class="fas fa-user-plus"></i> إضافة سائق
                                     </button>
-                                    <a href="trips.html" class="side-nav-item"><i class="fas fa-car"></i> الرحلات</a>
-                                    <a href="map.html" class="side-nav-item"><i class="fas fa-map"></i> الخريطة</a>
-                                    <a href="notifications.html" class="side-nav-item"><i class="fas fa-bell"></i>
+                                    <a href="/trips" class="side-nav-item"><i class="fas fa-car"></i> الرحلات</a>
+                                    <a href="/map" class="side-nav-item"><i class="fas fa-map"></i> الخريطة</a>
+                                    <a href="/notifications" class="side-nav-item"><i class="fas fa-bell"></i>
                                         الإشعارات</a>
-                                    <a href="messages.html" class="side-nav-item"><i class="fas fa-envelope"></i>
+                                    <a href="/messages" class="side-nav-item"><i class="fas fa-envelope"></i>
                                         الرسائل</a>
-                                    <a href="settings.html" class="side-nav-item"><i class="fas fa-cog"></i> الإعدادات</a>
+                                    <a href="/settings" class="side-nav-item"><i class="fas fa-cog"></i> الإعدادات</a>
                                 </div>
                             </div>
 
@@ -5794,7 +5794,7 @@
             <div class="modal-content chat-window">
                 <!-- رأس النافذة مع صورة واسم السائق -->
                 <div class="modal-header chat-header">
-                    <img id="driverImage" src="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527" alt="صورة السائق" class="rounded-circle me-2"
+                    <img id="driverImage" src="default-avatar.png" alt="صورة السائق" class="rounded-circle me-2"
                         style="width: 60px; height: 60px;">
                     <div>
                         <h5 class="modal-title" id="driverName">اسم السائق</h5>
@@ -6573,7 +6573,7 @@
 
                     if (driverData) {
                         // الوصول المباشر إلى الصورة من البيانات الرئيسية
-                        const imageUrl = driverData.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527';
+                        const imageUrl = driverData.imageUrl || 'default-avatar.png';
                         // الوصول إلى الاسم من coordinates
                         const name = driverData?.name || 'اسم غير متوفر';
                         // معلومات السيارة من البيانات الرئيسية
@@ -6626,7 +6626,7 @@
             return `
         <div class="driver-card">
             <div class="driver-image-container">
-                <img src="${driver.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527'}" class="driver-image">
+                <img src="${driver.imageUrl || 'default-avatar.png'}" class="driver-image">
             </div>
             <div class="driver-info">
                 <h3 class="driver-name">${driver.name || 'اسم غير متوفر'}</h3>
@@ -6698,7 +6698,7 @@
                         icon: L.divIcon({
                             html: `
                         <div style="position: relative; text-align: center;">
-                            <img src="${driver.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527'}" 
+                            <img src="${driver.imageUrl || 'default-avatar.png'}" 
                                  alt="صورة السائق" 
                                  style="width: 50px; height: 50px; border: 3px solid #FFD700; 
                                  border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
@@ -6715,7 +6715,7 @@
                     const popupContent = `
                 <div style="text-align: center; font-family: 'Segoe UI', sans-serif; min-width: 200px; background: #000000; border-radius: 10px; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
                     <div class="driver-popup-header" style="margin-bottom: 10px;">
-                        <img src="${driver.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527'}" 
+                        <img src="${driver.imageUrl || 'default-avatar.png'}" 
                              alt="صورة السائق" 
                              style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid #FFD700; 
                              margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
@@ -7689,7 +7689,7 @@
             return `
         <div class="driver-card ${distanceClass}" data-driver-id="${key}" data-distance="${distanceValue || 999999}">
             <div class="driver-image-container">
-                <img src="${driver.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527'}" alt="${driver.name}" class="driver-image">
+                <img src="${driver.imageUrl || 'default-avatar.png'}" alt="${driver.name}" class="driver-image">
                 <div class="driver-status ${driver.active ? 'status-active' : 'status-inactive'}">
                     ${driver.active ? 'متاح' : 'مشغول'}
                 </div>
@@ -7870,7 +7870,7 @@
                                 driverMarker.bindPopup(`
                             <div style="text-align: center;">
                                 <div style="margin-bottom: 10px;">
-                                    <img src="${driver.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527'}" 
+                                    <img src="${driver.imageUrl || 'default-avatar.png'}" 
                                          alt="صورة السائق" 
                                          style="width: 70px; height: 70px; border-radius: 50%; border: 3px solid #FFD700; margin-bottom: 10px;">
                                     <h6 style="margin: 5px 0; font-weight: bold;">${driver.name}</h6>
@@ -9923,7 +9923,7 @@ function createDriverMarker(driver) {
             <div class="driver-marker ${isActive ? 'active' : 'inactive'}">
                 <div class="marker-pulse" style="border-color: ${statusColor}"></div>
                 <div class="marker-container">
-                    <img src="${driver.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527'}" 
+                    <img src="${driver.imageUrl || 'default-avatar.png'}" 
                          alt="${driver.name}"
                          onerror="this.classList.add('error')">
                     <div class="marker-status" style="background-color: ${statusColor}">
@@ -9951,9 +9951,9 @@ function createDriverMarker(driver) {
                 <div class="popup-status ${isActive ? 'active' : 'inactive'}">
                     ${isActive ? 'متاح الآن' : 'مشغول'}
                 </div>
-                <img src="${driver.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527'}" 
+                <img src="${driver.imageUrl || 'default-avatar.png'}" 
                      alt="${driver.name}"
-                     onerror="this.src='https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527'">
+                     onerror="this.src='default-avatar.png'">
                 <h4>${driver.name}</h4>
                 <div class="driver-rating">
                     ${generateRatingStars(driver.rating || 5.0)}
@@ -10036,7 +10036,7 @@ function calculateArrivalTime(distance) {
 // تحسين معالج أخطاء الصور
 document.addEventListener('error', function(e) {
     if (e.target.tagName.toLowerCase() === 'img') {
-        const defaultImage = 'https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527';
+        const defaultImage = 'default-avatar.png';
         if (e.target.src !== defaultImage) {
             e.target.src = defaultImage;
             e.target.classList.add('error');
@@ -10230,7 +10230,7 @@ document.addEventListener('click', function(e) {
                                 icon: L.divIcon({
                                     html: `
                                 <div style="position: relative; text-align: center;">
-                                    <img src="${driver.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527'}" 
+                                    <img src="${driver.imageUrl || 'default-avatar.png'}" 
                                          alt="صورة السائق" 
                                          style="width: 35px; height: 35px; border-radius: 50%; border: 2px solid #FFD700;">
                                     <i class="fas fa-taxi" 
