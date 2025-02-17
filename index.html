@@ -74,6 +74,14 @@
 
 
     <!-- App Scripts -->
+    
+    <!-- إضافة المزيد من الأصوات -->
+<audio id="notificationSound" src="notification-sound.mp3" preload="auto"></audio>
+<audio id="messageSound" src="message-sound.mp3" preload="auto"></audio>
+
+<!-- إضافة الملفات الجديدة -->
+<script type="module" src="user-auth-notifications.js"></script>
+<script type="module" src="notifications-manager.js"></script>
     <script src="firebase-config.js"></script>
     <!-- قبل إغلاق body -->
     <script src="nearby-drivers-map.js"></script>
@@ -5226,7 +5234,7 @@
         width: 280px;
     }
 
-    .driver-logo {
+     .driver-logo {
         width: 60px;
         height: 60px;
     }
@@ -5235,10 +5243,474 @@
         font-size: 1.1rem;
     }
 }
+/* أنماط البحث عن السائقين في الجوار */
+.nearby-search-btn {
+    width: 45px;
+    height: 45px;
+    background: #FFD700;
+    border: 2px solid #000000;
+    border-radius: 50%;
+    color: #000;
+    font-size: 1.3rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.nearby-search-btn:hover {
+    transform: scale(1.1) rotate(15deg);
+    background: #FFD700;
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+}
+
+.radius-control {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 15px;
+    border-radius: 15px;
+    border: 2px solid #FFD700;
+    color: #FFFFFF;
+    width: 250px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.radius-control label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #FFD700;
+}
+
+.radius-control input[type="range"] {
+    width: 100%;
+    height: 6px;
+    background: #333;
+    border-radius: 3px;
+    outline: none;
+    margin: 10px 0;
+    -webkit-appearance: none;
+}
+
+.radius-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #FFD700;
+    border: 2px solid #000;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.radius-control input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* أنماط علامات السائقين */
+.driver-marker {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    transform: translate(-50%, -50%);
+}
+
+.marker-container {
+    position: relative;
+    width: 40px;
+    height: 40px;
+}
+
+.marker-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid #FFD700;
+    object-fit: cover;
+    background: #000000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+/* أنماط أيقونات المستخدم */
+.user-profile-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.user-profile-btn img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid #FFD700;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.user-profile-btn:hover img {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+/* أنماط معلومات المستخدم في القائمة الجانبية */
+.side-nav-user-info {
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.user-info-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info-header img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 3px solid #FFD700;
+    object-fit: cover;
+}
+
+.user-details {
+    flex: 1;
+}
+
+.user-details h6 {
+    color: #FFD700;
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.user-details span {
+    color: #FFFFFF;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* أنماط العدادات والشارات */
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #FF4136;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    border: 2px solid #1a1a1a;
+    animation: pulse 2s infinite;
+}
+
+.has-badge[data-count]:after {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    content: attr(data-count);
+    font-size: 12px;
+    padding: 3px;
+    border-radius: 50%;
+    line-height: 1em;
+    color: white;
+    background: rgba(255,0,0,0.85);
+    text-align: center;
+    min-width: 20px;
+    height: 20px;
+    font-weight: bold;
+    border: 2px solid #1a1a1a;
+    font-family: sans-serif;
+    animation: badge-pulse 2s infinite;
+}
+
+@keyframes badge-pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* تحسينات التفاعل */
+.side-nav-item {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.side-nav-item:hover {
+    background: rgba(255, 215, 0, 0.1);
+}
+
+.side-nav-item.has-notification:before {
+    content: '';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background: #FF4136;
+    border-radius: 50%;
+    animation: notification-pulse 2s infinite;
+}
+
+@keyframes notification-pulse {
+    0% {
+        transform: translateY(-50%) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-50%) scale(1.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(-50%) scale(1);
+        opacity: 1;
+    }
+}
+
+/* أنماط الشارات */
+.notification-badge,
+.message-badge {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+    background-color: #FFD700 !important;
+    color: #000000;
+    border: 2px solid #000000;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.2); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* أنماط صورة المستخدم في الشريط العلوي */
+.user-profile-btn img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid #FFD700;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.user-profile-btn img:hover {
+    transform: scale(1.1);
+}
+
+/* أنماط قائمة الإشعارات والرسائل */
+.notifications-list,
+.messages-list {
+    padding: 0;
+}
+
+.notification-item,
+.message-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.notification-item:hover,
+.message-item:hover {
+    background-color: rgba(255, 215, 0, 0.05);
+}
+
+.notification-item img,
+.message-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 1rem;
+    border: 2px solid #FFD700;
+    object-fit: cover;
+}
+
+.notification-content,
+.message-content {
+    flex: 1;
+}
+
+.notification-title,
+.message-sender {
+    font-weight: bold;
+    color: #FFD700;
+    margin-bottom: 0.3rem;
+}
+
+.notification-text,
+.message-text {
+    color: #FFFFFF;
+    font-size: 0.9rem;
+}
+
+.notification-time,
+.message-time {
+    font-size: 0.8rem;
+    color: #999999;
+}
+
+/* أنماط معلومات المستخدم في الشريط الجانبي */
+.side-nav-user-info {
+    padding: 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.side-nav-user-info img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #FFD700;
+    margin-bottom: 1rem;
+    object-fit: cover;
+}
+
+.side-nav-user-info h6 {
+    color: #FFD700;
+    margin-bottom: 0.3rem;
+}
+
+.side-nav-user-info .user-type {
+    color: #FFFFFF;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* أنماط النوافذ المنبثقة */
+.modal-content {
+    background-color: #1a1a1a;
+    border: 2px solid #FFD700;
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.modal-title {
+    color: #FFD700;
+}
+
+/* أنماط زر تسجيل الخروج */
+.logout-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background: transparent;
+    border: 2px solid #FFD700;
+    color: #FFD700;
+    border-radius: 10px;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: #FFD700;
+    color: #000000;
+}
+
+/* أنماط الإشعارات غير المقروءة */
+.unread {
+    background-color: rgba(255, 215, 0, 0.1);
+}
+
+.unread::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: #FFD700;
+    border-radius: 50%;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
     </style>
     </head>
 
     <body>
+    
+      <body>
+    <!-- تحديث شريط الأدوات في الأعلى -->
+<div class="tools">
+    <a class="nav-link position-relative" href="#" data-bs-toggle="modal" data-bs-target="#searchModal">
+        <i class="fas fa-search"></i>
+    </a>
+
+    <a class="nav-link position-relative" href="#" data-bs-toggle="modal" data-bs-target="#notificationsModal">
+        <i class="fas fa-bell"></i>
+        <span class="notification-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
+              style="display: none;">0</span>
+    </a>
+
+    
+
+    <!-- زر الحساب الشخصي -->
+    <a class="nav-link user-profile-btn" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">
+        <i class="fas fa-user"></i>
+        <span class="ms-1 d-none d-md-inline">تسجيل</span>
+    </a>
+</div>
+
+<!-- إضافة نوافذ الإشعارات والرسائل -->
+<!-- نافذة الإشعارات -->
+<div class="modal fade" id="notificationsModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">الإشعارات</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="notifications-list"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- نافذة الرسائل -->
+<div class="modal fade" id="messagesModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">الرسائل</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="messages-list"></div>
+            </div>
+        </div>
+    </div>
+</div>
         <!-- Header -->
         <nav class="navbar navbar-expand-lg navbar-dark app-header fixed-top">
 
@@ -5323,6 +5795,11 @@
         <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#notificationsModal">
             <i class="fas fa-bell"></i>
         </a>
+        <a class="nav-link position-relative" href="#" data-bs-toggle="modal" data-bs-target="#messagesModal">
+        <i class="fas fa-envelope"></i>
+        <span class="message-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
+              style="display: none;">0</span>
+    </a>
 
         <!-- Profile/Account Icon - يفتح نافذة اختيار نوع الحساب -->
         <a class="nav-link user-profile-btn" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">
@@ -10328,6 +10805,201 @@ document.addEventListener('click', function(e) {
                 startDriverLocationTracking(activeDriverId);
             }
         });
+        
+        // نظام إدارة الإشعارات
+class NotificationsManager {
+    constructor() {
+        this.database = firebase.database();
+        this.messageCounter = 0;
+        this.notificationCounter = 0;
+        this.notificationSound = new Audio('notification-sound.mp3');
+        this.messageSound = new Audio('message-sound.mp3');
+        this.initialize();
+    }
+
+    initialize() {
+        // تهيئة العناصر عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', () => {
+            this.setupNotificationButtons();
+            this.setupNotificationListeners();
+        });
+    }
+
+    setupNotificationButtons() {
+        // إعداد زر الإشعارات
+        const notificationsBtn = document.querySelector('[data-bs-target="#notificationsModal"]');
+        if (notificationsBtn) {
+            notificationsBtn.innerHTML = `
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none;">0</span>
+            `;
+        }
+
+        // إعداد زر الرسائل
+        const messagesBtn = document.querySelector('[data-bs-target="#messagesModal"]');
+        if (messagesBtn) {
+            messagesBtn.innerHTML = `
+                <i class="fas fa-envelope"></i>
+                <span class="message-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none;">0</span>
+            `;
+        }
+    }
+
+    setupNotificationListeners() {
+        // الحصول على معرف السائق من التخزين المحلي
+        const driverId = localStorage.getItem('currentDriverId');
+        if (!driverId) return;
+
+        // مراقبة الرسائل الجديدة
+        this.database.ref(`chats/${driverId}/messages`).on('child_added', (snapshot) => {
+            const message = snapshot.val();
+            if (message && !message.read) {
+                this.messageCounter++;
+                this.updateMessageBadge();
+                this.showMessageNotification(message);
+                this.messageSound.play().catch(e => console.log('Audio play failed:', e));
+            }
+        });
+
+        // مراقبة الإشعارات الجديدة
+        this.database.ref(`drivers/${driverId}/notifications`).on('child_added', (snapshot) => {
+            const notification = snapshot.val();
+            if (notification && !notification.read) {
+                this.notificationCounter++;
+                this.updateNotificationBadge();
+                this.showNotification(notification);
+                this.notificationSound.play().catch(e => console.log('Audio play failed:', e));
+            }
+        });
+    }
+
+    updateMessageBadge() {
+        const badge = document.querySelector('.message-badge');
+        if (badge) {
+            badge.textContent = this.messageCounter;
+            badge.style.display = this.messageCounter > 0 ? 'block' : 'none';
+        }
+    }
+
+    updateNotificationBadge() {
+        const badge = document.querySelector('.notification-badge');
+        if (badge) {
+            badge.textContent = this.notificationCounter;
+            badge.style.display = this.notificationCounter > 0 ? 'block' : 'none';
+        }
+    }
+
+    showMessageNotification(message) {
+        const toast = document.createElement('div');
+        toast.className = 'notification-toast animate__animated animate__fadeInRight';
+        toast.innerHTML = `
+            <div class="notification-content">
+                <div class="notification-title">رسالة جديدة</div>
+                <div class="notification-body">
+                    <strong>${message.senderName}</strong>: ${message.text}
+                </div>
+            </div>
+            <button class="notification-close" onclick="this.parentElement.remove()">&times;</button>
+        `;
+
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.classList.replace('animate__fadeInRight', 'animate__fadeOutRight');
+            setTimeout(() => toast.remove(), 300);
+        }, 5000);
+    }
+
+    showNotification(notification) {
+        const toast = document.createElement('div');
+        toast.className = 'notification-toast animate__animated animate__fadeInRight';
+        toast.innerHTML = `
+            <div class="notification-content">
+                <div class="notification-title">${notification.title}</div>
+                <div class="notification-body">${notification.body}</div>
+            </div>
+            <button class="notification-close" onclick="this.parentElement.remove()">&times;</button>
+        `;
+
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.classList.replace('animate__fadeInRight', 'animate__fadeOutRight');
+            setTimeout(() => toast.remove(), 300);
+        }, 5000);
+    }
+
+    async markMessagesAsRead(driverId) {
+        try {
+            const messagesRef = this.database.ref(`chats/${driverId}/messages`);
+            const snapshot = await messagesRef.once('value');
+            const updates = {};
+
+            snapshot.forEach(child => {
+                if (!child.val().read) {
+                    updates[`${child.key}/read`] = true;
+                }
+            });
+
+            await messagesRef.update(updates);
+            this.messageCounter = 0;
+            this.updateMessageBadge();
+        } catch (error) {
+            console.error('Error marking messages as read:', error);
+        }
+    }
+
+    async markNotificationsAsRead(driverId) {
+        try {
+            const notificationsRef = this.database.ref(`drivers/${driverId}/notifications`);
+            const snapshot = await notificationsRef.once('value');
+            const updates = {};
+
+            snapshot.forEach(child => {
+                if (!child.val().read) {
+                    updates[`${child.key}/read`] = true;
+                }
+            });
+
+            await notificationsRef.update(updates);
+            this.notificationCounter = 0;
+            this.updateNotificationBadge();
+        } catch (error) {
+            console.error('Error marking notifications as read:', error);
+        }
+    }
+
+    // إضافة رسالة جديدة
+    async addMessage(driverId, message) {
+        try {
+            const newMessageRef = this.database.ref(`chats/${driverId}/messages`).push();
+            await newMessageRef.set({
+                ...message,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                read: false
+            });
+        } catch (error) {
+            console.error('Error adding message:', error);
+            throw error;
+        }
+    }
+
+    // إضافة إشعار جديد
+    async addNotification(driverId, notification) {
+        try {
+            const newNotificationRef = this.database.ref(`drivers/${driverId}/notifications`).push();
+            await newNotificationRef.set({
+                ...notification,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                read: false
+            });
+        } catch (error) {
+            console.error('Error adding notification:', error);
+            throw error;
+        }
+    }
+}
+
+// إنشاء نسخة من مدير الإشعارات
+const notificationsManager = new NotificationsManager();
 
     </script>
     </main>
