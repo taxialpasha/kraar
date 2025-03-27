@@ -1,0 +1,627 @@
+/* أنماط CSS إضافية لخاصية البحث في المنشورات */
+
+/* اقتراحات البحث */
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #1a1a1a;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    margin-top: 5px;
+    padding: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #FFD700 #333;
+}
+
+.search-suggestions::-webkit-scrollbar {
+    width: 8px;
+}
+
+.search-suggestions::-webkit-scrollbar-track {
+    background: #333;
+    border-radius: 4px;
+}
+
+.search-suggestions::-webkit-scrollbar-thumb {
+    background-color: #FFD700;
+    border-radius: 4px;
+}
+
+.suggestions-section {
+    margin-bottom: 15px;
+}
+
+.suggestions-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    color: #999;
+    font-size: 0.85rem;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.suggestions-header i {
+    color: #FFD700;
+    margin-left: 5px;
+}
+
+.suggestions-header .clear-history-btn {
+    margin-right: auto;
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    padding: 2px 5px;
+    transition: all 0.2s ease;
+}
+
+.suggestions-header .clear-history-btn:hover {
+    color: #FF4136;
+}
+
+.suggestions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #eee;
+}
+
+.suggestion-item:hover {
+    background-color: rgba(255, 215, 0, 0.1);
+}
+
+.suggestion-item i {
+    color: #FFD700;
+    margin-left: 10px;
+    font-size: 0.9rem;
+    width: 16px;
+    text-align: center;
+}
+
+.suggestion-item span {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.suggestion-item .search-count {
+    background-color: rgba(255, 215, 0, 0.2);
+    color: #FFD700;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    margin-right: 5px;
+}
+
+.suggestion-item .remove-suggestion-btn {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    padding: 2px;
+    border-radius: 50%;
+    visibility: hidden;
+    transition: all 0.2s ease;
+}
+
+.suggestion-item:hover .remove-suggestion-btn {
+    visibility: visible;
+}
+
+.suggestion-item .remove-suggestion-btn:hover {
+    color: #FF4136;
+    background-color: rgba(255, 65, 54, 0.1);
+}
+
+/* تنسيق تمييز نص البحث */
+mark {
+    background-color: rgba(255, 215, 0, 0.3);
+    color: #FFD700;
+    border-radius: 2px;
+    padding: 0 2px;
+}
+
+/* شريط نتائج البحث في صفحة المنشورات */
+.search-results-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    animation: fadeIn 0.3s ease;
+}
+
+.search-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.search-query {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #FFD700;
+}
+
+.search-query i {
+    font-size: 1.1rem;
+}
+
+.search-stats {
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.clear-search-btn {
+    background-color: transparent;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    color: #FFD700;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.clear-search-btn:hover {
+    background-color: rgba(255, 215, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* سحابة الوسوم */
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0;
+    justify-content: center;
+}
+
+.tag-item {
+    display: inline-block;
+    padding: 5px 12px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.tag-item:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 0 5px currentColor;
+}
+
+/* تحسينات لنافذة البحث الرئيسية */
+#searchModal .modal-content {
+    background-color: #1a1a1a;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+#searchModal .modal-header {
+    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+    padding: 15px 20px;
+}
+
+#searchModal .modal-title {
+    color: #FFD700;
+}
+
+#searchModal .modal-body {
+    padding: 20px;
+}
+
+#searchModal .modal-footer {
+    border-top: 1px solid rgba(255, 215, 0, 0.1);
+    padding: 15px 20px;
+}
+
+#applySearchToFeed {
+    background-color: #333;
+    border-color: #FFD700;
+    color: #FFD700;
+    transition: all 0.3s ease;
+}
+
+#applySearchToFeed:hover {
+    background-color: #FFD700;
+    color: #000;
+}
+
+.search-btn {
+    background-color: rgba(255, 215, 0, 0.1);
+    border-color: rgba(255, 215, 0, 0.3);
+    color: #FFD700;
+}
+
+.search-btn:hover {
+    background-color: rgba(255, 215, 0, 0.2);
+    color: #FFD700;
+}
+
+/* رسالة الحالة الأولية للبحث */
+.initial-search-state {
+    color: #666;
+    padding: 30px 0;
+}
+
+.initial-search-state i {
+    margin-bottom: 15px;
+}
+
+/* متحركات */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* تحسينات للنمط المتجاوب */
+@media (max-width: 768px) {
+    .search-suggestions {
+        max-height: 300px;
+    }
+    
+    .search-banner-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .search-results-banner {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .clear-search-btn {
+        width: 100%;
+    }
+    
+    .tag-cloud {
+        gap: 5px;
+    }
+    
+    .tag-item {
+        padding: 3px 8px;
+        font-size: 0.9em !important;
+    }
+    
+    .suggestion-item {
+        padding: 10px;
+    }
+}
+
+/* تخصيصات لوضع الظلام */
+@media (prefers-color-scheme: dark) {
+    .search-suggestions {
+        background-color: #1a1a1a;
+        border-color: rgba(255, 215, 0, 0.2);
+    }
+    
+    .suggestion-item:hover {
+        background-color: rgba(255, 215, 0, 0.1);
+    }
+    
+    mark {
+        background-color: rgba(255, 215, 0, 0.3);
+        color: #FFD700;
+    }
+    
+    .search-results-banner {
+        background-color: rgba(255, 215, 0, 0.1);
+        border-color: rgba(255, 215, 0, 0.2);
+    }
+    
+    .clear-search-btn {
+        border-color: rgba(255, 215, 0, 0.3);
+        color: #FFD700;
+    }
+    
+    .tag-item {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+}
+
+/* تخصيصات إضافية لنتائج البحث */
+.highlighted-search-match {
+    position: relative;
+    display: inline-block;
+    background-color: rgba(255, 215, 0, 0.15);
+    border-radius: 3px;
+    padding: 0 3px;
+    animation: highlight-pulse 2s infinite;
+}
+
+@keyframes highlight-pulse {
+    0% { background-color: rgba(255, 215, 0, 0.15); }
+    50% { background-color: rgba(255, 215, 0, 0.3); }
+    100% { background-color: rgba(255, 215, 0, 0.15); }
+}
+
+/* تحسينات لسلوك البحث الفوري */
+.search-mode-toggle {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+}
+
+.search-mode-toggle label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 15px;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.search-mode-toggle input[type="checkbox"] {
+    margin-left: 8px;
+}
+
+.search-mode-toggle .toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    margin-left: 10px;
+}
+
+.search-mode-toggle .toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.search-mode-toggle .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #555;
+    border-radius: 20px;
+    transition: .4s;
+}
+
+.search-mode-toggle .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: .4s;
+}
+
+.search-mode-toggle input:checked + .slider {
+    background-color: #FFD700;
+}
+
+.search-mode-toggle input:checked + .slider:before {
+    transform: translateX(20px);
+    background-color: #000;
+}
+
+/* تخصيصات لعرض علامات الوسوم في نتائج البحث */
+.post-hashtags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 8px;
+}
+
+.post-hashtag {
+    display: inline-flex;
+    align-items: center;
+    background-color: rgba(255, 215, 0, 0.1);
+    color: #FFD700;
+    border-radius: 20px;
+    padding: 3px 8px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.post-hashtag:hover {
+    background-color: rgba(255, 215, 0, 0.2);
+}
+
+.post-hashtag i {
+    margin-left: 4px;
+    font-size: 0.7rem;
+}
+
+/* تخصيصات لنتائج البحث الفارغة */
+.empty-search-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    text-align: center;
+    color: #999;
+}
+
+.empty-search-results i {
+    font-size: 3rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.empty-search-results h5 {
+    color: #ccc;
+    margin-bottom: 10px;
+}
+
+.empty-search-results p {
+    margin-bottom: 20px;
+    max-width: 400px;
+}
+
+.suggestions-for-empty {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.suggestion-chip {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #FFD700;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.suggestion-chip:hover {
+    background-color: rgba(255, 215, 0, 0.15);
+}
+
+/* تحسينات للقسم المتعلق بالبحث حسب التاريخ */
+.date-range-slider {
+    padding: 0 10px;
+    margin-top: 15px;
+}
+
+.date-range-slider .range-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.date-range-slider .range-labels span {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.date-range-slider input[type="range"] {
+    width: 100%;
+    height: 8px;
+    -webkit-appearance: none;
+    background: linear-gradient(to right, #333, #555, #333);
+    border-radius: 5px;
+    outline: none;
+}
+
+.date-range-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #FFD700;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.date-range-slider input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #FFD700;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.date-range-values {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+.date-range-values span {
+    font-size: 0.85rem;
+    color: #ccc;
+}
+
+/* أنماط الإشعارات لنتائج البحث */
+.search-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    border-right: 4px solid #FFD700;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    max-width: 400px;
+    animation: slideIn 0.3s ease, fadeOut 0.3s ease 5s forwards;
+}
+
+.search-notification-icon {
+    background-color: #FFD700;
+    color: #000;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.search-notification-content {
+    flex-grow: 1;
+}
+
+.search-notification-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.search-notification-message {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; visibility: hidden; }
+}
